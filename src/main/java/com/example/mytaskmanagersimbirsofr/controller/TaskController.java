@@ -2,6 +2,7 @@ package com.example.mytaskmanagersimbirsofr.controller;
 
 import com.example.mytaskmanagersimbirsofr.repository.TaskRepo;
 import com.example.mytaskmanagersimbirsofr.service.TaskService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,14 @@ public class TaskController {
     }
 
     @GetMapping("{id}")
+    @ApiOperation("Метод редактирования задачи")
     public String taskEditForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("task", taskService.getTaskById(id));
         return "taskEdit";
     }
 
     @PostMapping("{id}")
+    @ApiOperation("Сохранить измененную задачу")
     public String taskEditSave(
             @RequestParam String title,
             @RequestParam String performer,
