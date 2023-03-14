@@ -1,6 +1,5 @@
 package com.example.mytaskmanagersimbirsofr.controller;
 
-import com.example.mytaskmanagersimbirsofr.repository.TaskRepo;
 import com.example.mytaskmanagersimbirsofr.service.TaskService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
     @Autowired
     private final TaskService taskService;
-    @Autowired
-    private TaskRepo taskRepo;
-
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
@@ -39,10 +35,11 @@ public class TaskController {
         return "redirect:/dashboard/" + taskService.getTaskProjectId(id);
     }
 
-//    @PostMapping("{id}/delete")
-//    public String taskDelete(
-//            @PathVariable("id") Long id) {
-//        taskService.taskDelete(id);
-//        return "redirect:/dashboard/" + taskService.getProjectId(id);
-//    }
+    @PostMapping("{id}/delete")
+    public String taskDelete(
+            @PathVariable("id") Long id) {
+        Long projid = taskService.getTaskProjectId(id);
+        taskService.deleteTask(id);
+        return "redirect:/dashboard/"+projid;
+    }
 }

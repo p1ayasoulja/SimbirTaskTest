@@ -12,7 +12,11 @@
     <input type="hidden" name="id">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     <button type="submit">Save task</button>
-
+</form>
+<form method="post" action="/task/{{id}}/delete">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <button type="submit">Delete task</button>
 </form>
 </body>
 </html>
