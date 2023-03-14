@@ -1,0 +1,29 @@
+<html>
+<body>
+<a href="/dashboard">Back</a>
+<div>
+    <form method="post">
+        <input type="text" name="title" placeholder="Enter title"/>
+        <input type="text" name="author" placeholder="Enter author"/>
+        <input type="text" name="performer" placeholder="Enter performer"/>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Add task</button>
+    </form>
+</div>
+<div>
+    List of tasks
+</div>
+{{#tasks}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{title}}</span>
+        <i>{{author}}</i>
+        <i>{{performer}}</i>
+        <i>{{releaseVersion}}</i>
+        <i>{{startTime}}</i>
+        <i>{{status}}</i>
+
+    </div>
+{{/tasks}}
+</body>
+</html>
