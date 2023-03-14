@@ -13,7 +13,11 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
-
+    /**
+     *Процедура получения пользователся по его никнейму
+     * @param username - никнейм
+     * @return сущность пользователя
+     **/
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepo.findByUsername(username);
