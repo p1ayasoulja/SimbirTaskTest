@@ -1,6 +1,5 @@
 package com.example.mytaskmanagersimbirsofr.controller;
 
-import com.example.mytaskmanagersimbirsofr.entity.Project;
 import com.example.mytaskmanagersimbirsofr.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,18 +16,16 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("{id}")
-    public String taskEditForm(@PathVariable("id") Long id, Model model) {
+    public String projectEditForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("project", projectService.getProjectById(id));
         return "projectEdit";
     }
 
     @PostMapping("{id}")
-    public String taskSave(
+    public String projectEditSave(
             @RequestParam String name,
             @PathVariable("id") Long id) {
-        Project project = projectService.getProjectById(id);
-        project.setName(name);
-        projectService.saveProject(project);
+        projectService.projectEditSave(name, id);
         return "redirect:/dashboard";
     }
 }
