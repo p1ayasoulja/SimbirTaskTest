@@ -24,5 +24,10 @@ public class ProjectService {
         Project project = new Project(name);
         projectRepo.save(project);
     }
-
+    public Project getProjectById(Long id) {
+        return projectRepo.findById(id).get();
+    }
+    public void saveProject(Project project) {
+        projectRepo.save(project);
+    }
 }

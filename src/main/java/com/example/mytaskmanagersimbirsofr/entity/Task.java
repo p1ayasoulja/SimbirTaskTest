@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Task {
     private enum Status {
-        BACKLOG, IN_PROGRESS, DONE
+        IN_PROGRESS, BACKLOG, DONE
     }
 
     @Id
@@ -40,8 +40,8 @@ public class Task {
         this.performer = performer;
         this.releaseVersion = "1.0";
         this.startTime = LocalDate.now();
-        this.status=Status.IN_PROGRESS;
-        this.dashboard =id;
+        this.status = Status.IN_PROGRESS;
+        this.dashboard = id;
 
     }
 

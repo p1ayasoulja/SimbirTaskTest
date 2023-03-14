@@ -1,0 +1,12 @@
+<html>
+<body>
+<a href="/dashboard">To dashboard</a>
+<div> Project "{{project.name}}" editor</div>
+<form method="post">
+    <div><input type="text" placeholder="Enter new name" name="name"></div>
+    <input type="hidden" name="id">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <button type="submit">Save project</button>
+</form>
+</body>
+</html>

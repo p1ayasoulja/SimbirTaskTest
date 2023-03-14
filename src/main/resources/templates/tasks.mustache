@@ -6,7 +6,7 @@
         <input type="text" name="title" placeholder="Enter title"/>
         <input type="text" name="author" placeholder="Enter author"/>
         <input type="text" name="performer" placeholder="Enter performer"/>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <button type="submit">Add task</button>
     </form>
 </div>
@@ -22,7 +22,7 @@
         <i>{{releaseVersion}}</i>
         <i>{{startTime}}</i>
         <i>{{status}}</i>
-
+        <td><a href="/task/{{id}}">Edit</a></td>
     </div>
 {{/tasks}}
 </body>

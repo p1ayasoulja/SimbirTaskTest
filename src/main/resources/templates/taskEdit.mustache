@@ -1,0 +1,17 @@
+<html>
+<body>
+<a href="/dashboard">To dashboard</a>
+<div> Task editor</div>
+<form method="post">
+    <div><input type="text" placeholder="{{task.title}}" name="title"></div>
+    <div><input type="text" placeholder="{{task.performer}}" name="performer"></div>
+    <div><input type="text" placeholder="{{task.releaseVersion}}" name="releaseVersion"></div>
+<div>1 - BACKLOG, 2 - DONE </div>
+    <div><input type="text" placeholder="{{task.status}}" name="status"></div>
+
+    <input type="hidden" name="id">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <button type="submit">Save task</button>
+</form>
+</body>
+</html>

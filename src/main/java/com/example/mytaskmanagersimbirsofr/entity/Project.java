@@ -23,4 +23,36 @@ public class Project {
         this.name = name;
         this.is_closed = false;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public boolean isIs_closed() {
+        return is_closed;
+    }
+
+    public void setIs_closed(boolean is_closed) {
+        this.is_closed = is_closed;
+    }
 }
