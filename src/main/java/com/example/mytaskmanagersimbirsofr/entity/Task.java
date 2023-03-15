@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Task {
-    private enum Status {
+    public enum Status {
         BACKLOG, DONE, IN_PROGRESS
     }
 

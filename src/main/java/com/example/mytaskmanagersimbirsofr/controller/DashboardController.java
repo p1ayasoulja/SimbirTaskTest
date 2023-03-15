@@ -4,23 +4,27 @@ import com.example.mytaskmanagersimbirsofr.entity.Project;
 import com.example.mytaskmanagersimbirsofr.service.ProjectService;
 import com.example.mytaskmanagersimbirsofr.service.TaskService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
 @Controller
 public class DashboardController {
+    private final ProjectService projectService;
+    private final TaskService taskService;
 
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private TaskService taskService;
+    public DashboardController(ProjectService projectService, TaskService taskService) {
+        this.projectService = projectService;
+        this.taskService = taskService;
+    }
 
     @GetMapping("/")
     @ApiOperation("Приветственный экран")
-    public String greeting(Map<String, Object> model) {
+    public String greeting() {
         return "greeting";
     }
 

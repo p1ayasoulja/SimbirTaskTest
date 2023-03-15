@@ -1,8 +1,8 @@
 package com.example.mytaskmanagersimbirsofr.controller;
 
+import com.example.mytaskmanagersimbirsofr.entity.Task;
 import com.example.mytaskmanagersimbirsofr.service.TaskService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,36 +10,36 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/task")
 public class TaskController {
-    @Autowired
     private final TaskService taskService;
-
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
     @GetMapping("{id}")
     @ApiOperation("Метод редактирования задачи")
-    public String taskEditForm(@PathVariable("id") Long id, Model model) {
+    public String showTaskEditor(@PathVariable("id") Long id, Model model) {
         model.addAttribute("task", taskService.getTaskById(id));
         return "taskEdit";
     }
 
     @PostMapping("{id}")
     @ApiOperation("Сохранить измененную задачу")
-    public String taskEditSave(
-            @RequestParam String title,
-            @RequestParam String performer,
-            @RequestParam String releaseVersion,
+    public String saveEditTask(
+            @RequestParam( required = false) String title,
+            @RequestParam( required = false) String performer,
+            @RequestParam( required = false) String releaseVersion,
+            @RequestParam( required = false) Task.Status status,
             @PathVariable("id") Long id) {
-        taskService.taskEditSave(title, performer, releaseVersion, id);
+        taskService.taskEditSave(title, performer, releaseVersion, id, status);
         return "redirect:/dashboard/" + taskService.getTaskProjectId(id);
     }
 
     @PostMapping("{id}/delete")
-    public String taskDelete(
+    public String deleteTask(
             @PathVariable("id") Long id) {
-        Long projid = taskService.getTaskProjectId(id);
+        Long projectid = taskService.getTaskProjectId(id);
         taskService.deleteTask(id);
-        return "redirect:/dashboard/"+projid;
+        return "redirect:/dashboard/" + projectid;
     }
 }
+

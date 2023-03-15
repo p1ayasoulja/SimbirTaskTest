@@ -6,6 +6,7 @@ import com.example.mytaskmanagersimbirsofr.repository.TaskRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,38 +17,45 @@ public class TaskService {
     public TaskService(TaskRepo taskRepo) {
         this.taskRepo = taskRepo;
     }
+
     /**
-     *Процедура добавления новой задачи
-     * @param title - описание задачи
-     * @param author - автор задачи
+     * Добавление новой задачи
+     *
+     * @param title     - описание задачи
+     * @param author    - автор задачи
      * @param performer - исполнитель задачи
-     * @param id - идентификатор проекта задачи
+     * @param id        - идентификатор проекта задачи
      **/
     public void addTask(String title, String author, String performer, Project id) {
         Task task = new Task(title, author, performer, id);
         taskRepo.save(task);
         log.info("IN addTask - task: {} successfully added", task.getId());
     }
+
     /**
-     *Процедура показа задач проекта
+     * Показ задач проекта
+     *
      * @param id - идентификатор проекта
      * @return список задач на проекте
      **/
     public List<Task> showTaskList(Project id) {
-
-            return taskRepo.findByDashboard(id);
+        log.info("IN showTaskList - tasks of: {} project successfully showed", id.getId());
+        return taskRepo.findByDashboard(id);
 
     }
+
     /**
-     *Процедура сохранения проекта
+     * Сохранение проекта
+     *
      * @param task - сущность проекта
      **/
     public void saveTask(Task task) {
         taskRepo.save(task);
-        log.info("IN taskEditSave - task: {} successfully saved", task.getId());
     }
+
     /**
-     *Процедура получения задачи по ее идентификатору
+     * Получение задачи по ее идентификатору
+     *
      * @param id - идентификатор задачи
      * @return сущность задачи
      **/
@@ -55,22 +63,27 @@ public class TaskService {
         log.info("IN getTaskById - task: {} successfully found", id);
         return taskRepo.findById(id).get();
     }
+
     /**
-     *Процедура удаления задачи по идентификатору
+     * Удаление задачи по идентификатору
+     *
      * @param id - идентификатор задачи
      **/
     public void deleteTask(Long id) {
         log.info("IN deleteTask - task: {} successfully deleted", id);
         taskRepo.deleteById(id);
     }
+
     /**
-     *Процедура сохранения измененной задачи
-     * @param title - описание задачи
-     * @param performer - идентификатор проекта
+     * Сохранение измененной задачи
+     *
+     * @param title          - описание задачи
+     * @param performer      - идентификатор проекта
      * @param releaseVersion - версия релиза
-     * @param id - индентификатор задачи
+     * @param id             - индентификатор задачи
+     * @param status         -  статус выполнения задачи
      **/
-    public void taskEditSave(String title, String performer, String releaseVersion, Long id) {
+    public void taskEditSave(String title, String performer, String releaseVersion, Long id, Task.Status status) {
         Task task = taskRepo.getById(id);
         if (!title.isEmpty()) {
             task.setTitle(title);
@@ -81,10 +94,19 @@ public class TaskService {
         if (!releaseVersion.isEmpty()) {
             task.setReleaseVersion(releaseVersion);
         }
+        if (status != null) {
+            task.setStatus(status);
+            if (status == Task.Status.DONE) {
+                task.setEndTime(LocalDateTime.now());
+            }
+        }
         saveTask(task);
+        log.info("IN taskEditSave - task: {} successfully edited", id);
     }
+
     /**
-     *Процедура получения идентификатора проекта по идентификатору задачи
+     * Получение идентификатора проекта по идентификатору задачи
+     *
      * @param id - идентификатор задачи
      * @return идентификатор проекта
      **/

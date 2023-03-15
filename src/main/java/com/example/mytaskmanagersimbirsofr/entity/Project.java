@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "name")
     private String name;
@@ -48,7 +48,7 @@ public class Project {
         this.tasks = tasks;
     }
 
-    public boolean isIs_closed() {
+    public boolean Is_closed() {
         return is_closed;
     }
 
