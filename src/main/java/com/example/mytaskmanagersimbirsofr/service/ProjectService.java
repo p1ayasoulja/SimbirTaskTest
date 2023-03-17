@@ -30,7 +30,7 @@ public class ProjectService {
      * @param name - Имя проекта
      **/
     public void addProject(String name) {
-        Project project = new Project(name);
+        Project project = new Project(name, false);
         projectRepo.save(project);
         log.info("IN addProject - project: {} successfully added", name);
     }
@@ -54,28 +54,28 @@ public class ProjectService {
      **/
     public void saveProject(Project project) {
         projectRepo.save(project);
-        log.info("IN saveProject - task: {} successfully saved", project.getId());
     }
 
     /**
      * Сохранение измененного проекта
      *
-     * @param name      - Имя проекта
-     * @param id        - идентификатор проекта
-     * @param is_closed - статус завершения проекта
+     * @param name   Имя проекта
+     * @param id     идентификатор проекта
+     * @param closed статус завершения проекта
      **/
-    public void saveEditedProject(String name, Long id, Boolean is_closed) {
+    public void updateProject(String name, Long id, Boolean closed) {
         Project project = projectRepo.getById(id);
         if (!name.isEmpty()) {
             project.setName(name);
             log.info("IN saveProject - name: {} successfully saved", name);
         }
-        if (is_closed != null) {
+        if (closed) {
             if (canBeProjectClose(projectRepo.getById(id))) {
-                project.setIs_closed(is_closed);
-                log.info("IN saveProject - status: {} successfully saved", is_closed);
+                project.setClosed(true);
+                log.info("IN saveProject - status: {} successfully saved", closed);
             }
         }
+        else project.setClosed(false);
         saveProject(project);
 
     }
@@ -89,11 +89,10 @@ public class ProjectService {
     public boolean canBeProjectClose(Project project) {
         List<Task> taskList = project.getTasks();
         boolean isDone = true;
-        for (int j = 0; j < taskList.size() - 1; j++) {
-            if (taskList.get(j).getStatus() != Task.Status.DONE) {
+        for (Task task : taskList) {
+            if (task.getStatus() != Task.Status.DONE) {
                 isDone = false;
                 break;
-
             }
         }
         return isDone;

@@ -13,8 +13,10 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
+
     /**
-     *Процедура получения пользователся по его никнейму
+     * Процедура получения пользователся по его никнейму
+     *
      * @param username - никнейм
      * @return сущность пользователя
      **/

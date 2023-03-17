@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/task")
 public class TaskController {
     private final TaskService taskService;
+
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -19,24 +20,26 @@ public class TaskController {
     @ApiOperation("Метод редактирования задачи")
     public String showTaskEditor(@PathVariable("id") Long id, Model model) {
         model.addAttribute("task", taskService.getTaskById(id));
-        return "taskEdit";
+        return "taskEditor";
     }
 
     @PostMapping("{id}")
     @ApiOperation("Сохранить измененную задачу")
-    public String saveEditTask(
-            @RequestParam( required = false) String title,
-            @RequestParam( required = false) String performer,
-            @RequestParam( required = false) String releaseVersion,
-            @RequestParam( required = false) Task.Status status,
-            @PathVariable("id") Long id) {
+    public String updateTask(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String performer,
+            @RequestParam(required = false) String releaseVersion,
+            @RequestParam(required = false) Task.Status status,
+            @PathVariable("id") Long id
+    ) {
         taskService.taskEditSave(title, performer, releaseVersion, id, status);
         return "redirect:/dashboard/" + taskService.getTaskProjectId(id);
     }
 
     @PostMapping("{id}/delete")
     public String deleteTask(
-            @PathVariable("id") Long id) {
+            @PathVariable("id") Long id
+    ) {
         Long projectid = taskService.getTaskProjectId(id);
         taskService.deleteTask(id);
         return "redirect:/dashboard/" + projectid;

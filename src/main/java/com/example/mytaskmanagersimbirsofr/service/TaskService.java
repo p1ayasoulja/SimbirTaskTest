@@ -6,7 +6,6 @@ import com.example.mytaskmanagersimbirsofr.repository.TaskRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,7 +26,7 @@ public class TaskService {
      * @param id        - идентификатор проекта задачи
      **/
     public void addTask(String title, String author, String performer, Project id) {
-        Task task = new Task(title, author, performer, id);
+        Task task = new Task(title, author, performer, "1.0", id);
         taskRepo.save(task);
         log.info("IN addTask - task: {} successfully added", task.getId());
     }
@@ -96,9 +95,6 @@ public class TaskService {
         }
         if (status != null) {
             task.setStatus(status);
-            if (status == Task.Status.DONE) {
-                task.setEndTime(LocalDateTime.now());
-            }
         }
         saveTask(task);
         log.info("IN taskEditSave - task: {} successfully edited", id);

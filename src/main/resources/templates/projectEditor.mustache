@@ -4,7 +4,7 @@
 <div> Project "{{project.name}}" editor</div>
 <form method="post">
     <div> <input type="text" placeholder="Enter new name" name="name"></div>
-    <div><input type="text" placeholder="{{project.is_closed}}" name="is_closed"></div>
+    <div><input type="text" placeholder="{{project.closed}}" name="closed"></div>
     <input type="hidden" name="id">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     <button type="submit">Save project</button>

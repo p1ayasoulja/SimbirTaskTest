@@ -12,16 +12,16 @@ public class Project {
     private String name;
     @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
-    @Column(name = "is_closed")
-    private boolean is_closed;
+    @Column(name = "closed")
+    private Boolean closed;
 
     public Project() {
     }
 
-    public Project(String name) {
+    public Project(String name, Boolean closed) {
 
         this.name = name;
-        this.is_closed = false;
+        this.closed = closed;
     }
 
     public Long getId() {
@@ -49,10 +49,10 @@ public class Project {
     }
 
     public boolean Is_closed() {
-        return is_closed;
+        return closed;
     }
 
-    public void setIs_closed(boolean is_closed) {
-        this.is_closed = is_closed;
+    public void setClosed(boolean is_closed) {
+        this.closed = is_closed;
     }
 }

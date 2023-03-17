@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TaskRepo extends JpaRepository<Task, Long> {
-   List<Task> findByDashboard(Project id);
+    List<Task> findByDashboard(Project id);
 }

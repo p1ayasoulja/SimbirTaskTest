@@ -32,7 +32,7 @@ public class DashboardController {
     @ApiOperation("Список всех проектов")
     public String dashboard(Map<String, Object> model) {
         model.put("projectList", projectService.showProjects());
-        return "projects";
+        return "dashboard";
     }
 
     @PostMapping("/dashboard")
@@ -41,25 +41,27 @@ public class DashboardController {
                              Map<String, Object> model) {
         projectService.addProject(name);
         model.put("projectList", projectService.showProjects());
-        return "projects";
+        return "dashboard";
     }
 
     @GetMapping("/dashboard/{id}")
     @ApiOperation("Показать список задач проекта")
     public String showTasks(@PathVariable("id") Project id, Map<String, Object> model) {
         model.put("tasks", taskService.showTaskList(id));
-        return "tasks";
+        return "project";
     }
 
     @PostMapping("/dashboard/{id}")
     @ApiOperation("Добавить новую задачу на проект")
-    public String addTask(@RequestParam String title,
-                          @RequestParam String author,
-                          @RequestParam String performer,
-                          @PathVariable("id") Project id,
-                          Map<String, Object> model) {
+    public String addTask(
+            @RequestParam String title,
+            @RequestParam String author,
+            @RequestParam String performer,
+            @PathVariable("id") Project id,
+            Map<String, Object> model
+    ) {
         taskService.addTask(title, author, performer, id);
         model.put("tasks", taskService.showTaskList(id));
-        return "tasks";
+        return "project";
     }
 }

@@ -1,15 +1,9 @@
 package com.example.mytaskmanagersimbirsofr.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class Task {
-    public enum Status {
-        BACKLOG, DONE, IN_PROGRESS
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -21,27 +15,21 @@ public class Task {
     private String performer;
     @Column(name = "release_version")
     private String releaseVersion;
-    @Column(name = "start_time")
-    private LocalDate startTime;
-    @Column(name = "end_time")
-    private LocalDateTime endTime;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dashboard")
     private Project dashboard;
     @Column(name = "Status")
     private Status status;
-
     public Task() {
     }
 
-    public Task(String title, String author, String performer, Project id) {
+    public Task(String title, String author, String performer,String releaseVersion, Project id) {
         this.title = title;
         this.author = author;
         this.performer = performer;
-        this.releaseVersion = "1.0";
-        this.startTime = LocalDate.now();
-        this.status=Status.IN_PROGRESS;
-        this.dashboard =id;
+        this.releaseVersion = releaseVersion;
+        this.status = Status.IN_PROGRESS;
+        this.dashboard = id;
 
     }
 
@@ -53,24 +41,32 @@ public class Task {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getAuthor() {
         return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getPerformer() {
         return performer;
     }
 
+    public void setPerformer(String performer) {
+        this.performer = performer;
+    }
+
     public String getReleaseVersion() {
         return releaseVersion;
     }
 
-    public LocalDate getStartTime() {
-        return startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public void setReleaseVersion(String releaseVersion) {
+        this.releaseVersion = releaseVersion;
     }
 
     public Project getDashboard() {
@@ -81,30 +77,11 @@ public class Task {
         return status;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setPerformer(String performer) {
-        this.performer = performer;
-    }
-
-    public void setReleaseVersion(String releaseVersion) {
-        this.releaseVersion = releaseVersion;
-    }
-
-    public void setStartTime(LocalDate startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public void setStatus(Status status) {this.status = status;
+    public enum Status {
+        BACKLOG, DONE, IN_PROGRESS
     }
 }

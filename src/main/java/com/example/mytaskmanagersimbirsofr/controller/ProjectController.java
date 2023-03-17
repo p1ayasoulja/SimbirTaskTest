@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @PreAuthorize("hasAuthority('MANAGER')")
 public class ProjectController {
     private final ProjectService projectService;
+
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
@@ -20,16 +21,17 @@ public class ProjectController {
     @ApiOperation("Редактирование проекта")
     public String showProjectEditor(@PathVariable("id") Long id, Model model) {
         model.addAttribute("project", projectService.getProjectById(id));
-        return "projectEdit";
+        return "projectEditor";
     }
 
     @PostMapping("{id}")
     @ApiOperation("Сохранение редактированного проекта")
-    public String saveEditProject(
-            @RequestParam (required = false) String name,
-            @RequestParam(required = false) Boolean is_closed,
-            @PathVariable("id") Long id) {
-        projectService.saveEditedProject(name, id, is_closed);
+    public String updateProject(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Boolean closed,
+            @PathVariable("id") Long id
+    ) {
+        projectService.updateProject(name, id, closed);
         return "redirect:/dashboard";
     }
 }

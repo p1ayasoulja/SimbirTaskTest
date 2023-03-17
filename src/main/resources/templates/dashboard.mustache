@@ -2,14 +2,14 @@
 <body>
 <div>
     <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <input type="submit" value="Sign Out">
     </form>
 </div>
 <div>
     <form method="post">
         <input type="text" name="name" placeholder="Enter name of new"/>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <button type="submit">Add project</button>
     </form>
 </div>
@@ -19,7 +19,7 @@
         <i>{{id}}</i>
         <a href="/dashboard/{{id}}">{{name}}</a>
         <span> Done : </span>
-        <span>{{is_closed}}</span>
+        <span>{{closed}}</span>
         <td><a href="/project/{{id}}">Edit</a></td>
     </div>
 {{/projectList}}
