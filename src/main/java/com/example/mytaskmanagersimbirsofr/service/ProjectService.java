@@ -31,7 +31,7 @@ public class ProjectService {
      **/
     public void addProject(String name) {
         Project project = new Project(name, false);
-        projectRepo.save(project);
+        saveProject(project);
         log.info("IN addProject - project: {} successfully added", name);
     }
 
@@ -74,8 +74,7 @@ public class ProjectService {
                 project.setClosed(true);
                 log.info("IN saveProject - status: {} successfully saved", closed);
             }
-        }
-        else project.setClosed(false);
+        } else project.setClosed(false);
         saveProject(project);
 
     }

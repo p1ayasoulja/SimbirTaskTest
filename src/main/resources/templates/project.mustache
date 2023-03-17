@@ -17,11 +17,12 @@
     <div>
         <b>{{id}}</b>
         <span>{{title}}</span>
-        <i>{{author}}</i>
-        <i>{{performer}}</i>
-        <i>{{releaseVersion}}</i>
-        <i>{{status}}</i>
-        <td><a href="/task/{{id}}">Edit</a></td>
+        <div>
+            <i>Author : {{author}},</i>
+            <i>Performer : {{performer}},</i>
+            <i>Status : {{status}}</i>
+            <td><a href="/task/{{id}}">Edit</a></td>
+        </div>
     </div>
 {{/tasks}}
 </body>

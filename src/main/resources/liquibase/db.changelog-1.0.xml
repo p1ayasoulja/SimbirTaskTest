@@ -39,8 +39,6 @@
             </column>
             <column name="performer" type="varchar(255)">
             </column>
-            <column name="release_version" type="varchar(20)">
-            </column>
             <column name="status" type="integer">
                 <constraints nullable="false"/>
             </column>
@@ -98,7 +96,6 @@
             <column name="title" value="Make a new block"/>
             <column name="author" value="mojang"/>
             <column name="performer" value="Notch"/>
-            <column name="release_version" value="1.0"/>
             <column name="status" value="0"/>
             <column name="dashboard" value="1"/>
         </insert>
@@ -107,7 +104,6 @@
             <column name="title" value="Make a new poizon"/>
             <column name="author" value="mojang"/>
             <column name="performer" value="Yandy"/>
-            <column name="release_version" value="1.0"/>
             <column name="status" value="0"/>
             <column name="dashboard" value="1"/>
         </insert>
@@ -116,7 +112,6 @@
             <column name="title" value="Make a new NPC"/>
             <column name="author" value="Cplus"/>
             <column name="performer" value="Polina"/>
-            <column name="release_version" value="1.0"/>
             <column name="status" value="0"/>
             <column name="dashboard" value="2"/>
         </insert>
@@ -125,7 +120,6 @@
             <column name="title" value="Make a new gun"/>
             <column name="author" value="Valve"/>
             <column name="performer" value="Gave"/>
-            <column name="release_version" value="1.0"/>
             <column name="status" value="0"/>
             <column name="dashboard" value="3"/>
         </insert>
@@ -134,7 +128,6 @@
             <column name="title" value="Make a world"/>
             <column name="author" value="mojang"/>
             <column name="performer" value="Garri"/>
-            <column name="release_version" value="1.0"/>
             <column name="status" value="0"/>
             <column name="dashboard" value="1"/>
         </insert>
@@ -162,6 +155,75 @@
         <insert tableName="user_role">
             <column name="user_id" value="2"/>
             <column name="roles" value="EMPLOYEE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.9" author="Andrey Galanov">
+        <createTable tableName="release">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="timestamp">
+            </column>
+            <column name="task" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2.0" author="Andrey Galanov">
+        <insert tableName="release">
+            <column name="id" value="1"/>
+            <column name="task" value="1"/>
+            <column name="version" value="1.0"/>
+            <column name="start_time" value="2023-03-16 10:20:15"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2.1" author="Andrey Galanov">
+        <addForeignKeyConstraint baseColumnNames="task"
+                                 baseTableName="release"
+                                 constraintName="fk_release_task"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="task"/>
+    </changeSet>
+    <changeSet id="2.2" author="Andrey Galanov">
+        <insert tableName="release">
+            <column name="id" value="2"/>
+            <column name="task" value="2"/>
+            <column name="version" value="beta3"/>
+            <column name="start_time" value="2023-03-16 10:20:15"/>
+        </insert>
+        <insert tableName="release">
+            <column name="id" value="3"/>
+            <column name="task" value="3"/>
+            <column name="version" value="vol.2"/>
+            <column name="start_time" value="2023-03-16 10:20:15"/>
+        </insert>
+        <insert tableName="release">
+            <column name="id" value="4"/>
+            <column name="task" value="4"/>
+            <column name="version" value="beta.2"/>
+            <column name="start_time" value="2023-03-16 10:20:15"/>
+        </insert>
+        <insert tableName="release">
+            <column name="id" value="5"/>
+            <column name="task" value="5"/>
+            <column name="version" value="2231.2"/>
+            <column name="start_time" value="2023-03-16 10:20:15"/>
+        </insert>
+        <insert tableName="release">
+            <column name="id" value="6"/>
+            <column name="task" value="5"/>
+            <column name="version" value="2231.3"/>
+            <column name="start_time" value="2023-03-16 10:20:15"/>
         </insert>
     </changeSet>
 

@@ -5,9 +5,8 @@
 <form method="post">
     <div><input type="text" placeholder="{{task.title}}" name="title"></div>
     <div><input type="text" placeholder="{{task.performer}}" name="performer"></div>
-    <div><input type="text" placeholder="{{task.releaseVersion}}" name="releaseVersion"></div>
     <div><input type="text" placeholder="{{task.status}}" name="status"></div>
-
+    <div><input type="text" placeholder="new version" name="version"></div>
     <input type="hidden" name="id">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     <button type="submit">Save task</button>
@@ -18,4 +17,10 @@
     <button type="submit">Delete task</button>
 </form>
 </body>
+{{#release}}
+    <div>
+        <span>Version : {{version}}</span>
+        <i>Start time : {{startTime}}</i>
+    </div>
+{{/release}}
 </html>

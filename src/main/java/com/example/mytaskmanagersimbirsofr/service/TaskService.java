@@ -2,6 +2,7 @@ package com.example.mytaskmanagersimbirsofr.service;
 
 import com.example.mytaskmanagersimbirsofr.entity.Project;
 import com.example.mytaskmanagersimbirsofr.entity.Task;
+import com.example.mytaskmanagersimbirsofr.repository.ReleaseRepo;
 import com.example.mytaskmanagersimbirsofr.repository.TaskRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,31 +14,16 @@ import java.util.List;
 public class TaskService {
     private final TaskRepo taskRepo;
 
-    public TaskService(TaskRepo taskRepo) {
+    public TaskService(TaskRepo taskRepo, ReleaseRepo releaseRepo) {
         this.taskRepo = taskRepo;
     }
-
-    /**
-     * Добавление новой задачи
-     *
-     * @param title     - описание задачи
-     * @param author    - автор задачи
-     * @param performer - исполнитель задачи
-     * @param id        - идентификатор проекта задачи
-     **/
-    public void addTask(String title, String author, String performer, Project id) {
-        Task task = new Task(title, author, performer, "1.0", id);
-        taskRepo.save(task);
-        log.info("IN addTask - task: {} successfully added", task.getId());
-    }
-
     /**
      * Показ задач проекта
      *
      * @param id - идентификатор проекта
      * @return список задач на проекте
      **/
-    public List<Task> showTaskList(Project id) {
+    public List<Task> getTaskList(Project id) {
         log.info("IN showTaskList - tasks of: {} project successfully showed", id.getId());
         return taskRepo.findByDashboard(id);
 
@@ -76,22 +62,18 @@ public class TaskService {
     /**
      * Сохранение измененной задачи
      *
-     * @param title          - описание задачи
-     * @param performer      - идентификатор проекта
-     * @param releaseVersion - версия релиза
-     * @param id             - индентификатор задачи
-     * @param status         -  статус выполнения задачи
+     * @param title     - описание задачи
+     * @param performer - идентификатор проекта
+     * @param id        - индентификатор задачи
+     * @param status    -  статус выполнения задачи
      **/
-    public void taskEditSave(String title, String performer, String releaseVersion, Long id, Task.Status status) {
+    public void updateTask(String title, String performer, Long id, Task.Status status) {
         Task task = taskRepo.getById(id);
         if (!title.isEmpty()) {
             task.setTitle(title);
         }
         if (!performer.isEmpty()) {
             task.setPerformer(performer);
-        }
-        if (!releaseVersion.isEmpty()) {
-            task.setReleaseVersion(releaseVersion);
         }
         if (status != null) {
             task.setStatus(status);

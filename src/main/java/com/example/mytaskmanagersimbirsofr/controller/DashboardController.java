@@ -1,7 +1,9 @@
 package com.example.mytaskmanagersimbirsofr.controller;
 
 import com.example.mytaskmanagersimbirsofr.entity.Project;
+import com.example.mytaskmanagersimbirsofr.entity.Task;
 import com.example.mytaskmanagersimbirsofr.service.ProjectService;
+import com.example.mytaskmanagersimbirsofr.service.ReleaseService;
 import com.example.mytaskmanagersimbirsofr.service.TaskService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -16,10 +18,13 @@ import java.util.Map;
 public class DashboardController {
     private final ProjectService projectService;
     private final TaskService taskService;
+    private final ReleaseService releaseService;
 
-    public DashboardController(ProjectService projectService, TaskService taskService) {
+    public DashboardController(ProjectService projectService, TaskService taskService, ReleaseService releaseService) {
         this.projectService = projectService;
         this.taskService = taskService;
+        this.releaseService = releaseService;
+
     }
 
     @GetMapping("/")
@@ -47,12 +52,12 @@ public class DashboardController {
     @GetMapping("/dashboard/{id}")
     @ApiOperation("Показать список задач проекта")
     public String showTasks(@PathVariable("id") Project id, Map<String, Object> model) {
-        model.put("tasks", taskService.showTaskList(id));
+        model.put("tasks", taskService.getTaskList(id));
         return "project";
     }
 
     @PostMapping("/dashboard/{id}")
-    @ApiOperation("Добавить новую задачу на проект")
+    @ApiOperation("Добавить новую задачу на проект и время ее релиза")
     public String addTask(
             @RequestParam String title,
             @RequestParam String author,
@@ -60,8 +65,10 @@ public class DashboardController {
             @PathVariable("id") Project id,
             Map<String, Object> model
     ) {
-        taskService.addTask(title, author, performer, id);
-        model.put("tasks", taskService.showTaskList(id));
+        Task task = new Task(title, author, performer, id);
+        taskService.saveTask(task);
+        releaseService.addRelease("1.0", task);
+        model.put("tasks", taskService.getTaskList(id));
         return "project";
     }
 }

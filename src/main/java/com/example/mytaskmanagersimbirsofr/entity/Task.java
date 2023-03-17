@@ -1,6 +1,7 @@
 package com.example.mytaskmanagersimbirsofr.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Task {
@@ -13,21 +14,20 @@ public class Task {
     private String author;
     @Column(name = "performer")
     private String performer;
-    @Column(name = "release_version")
-    private String releaseVersion;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dashboard")
     private Project dashboard;
     @Column(name = "Status")
     private Status status;
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Release> releases;
     public Task() {
     }
 
-    public Task(String title, String author, String performer,String releaseVersion, Project id) {
+    public Task(String title, String author, String performer, Project id) {
         this.title = title;
         this.author = author;
         this.performer = performer;
-        this.releaseVersion = releaseVersion;
         this.status = Status.IN_PROGRESS;
         this.dashboard = id;
 
@@ -61,14 +61,6 @@ public class Task {
         this.performer = performer;
     }
 
-    public String getReleaseVersion() {
-        return releaseVersion;
-    }
-
-    public void setReleaseVersion(String releaseVersion) {
-        this.releaseVersion = releaseVersion;
-    }
-
     public Project getDashboard() {
         return dashboard;
     }
@@ -83,5 +75,17 @@ public class Task {
 
     public enum Status {
         BACKLOG, DONE, IN_PROGRESS
+    }
+
+    public void setDashboard(Project dashboard) {
+        this.dashboard = dashboard;
+    }
+
+    public List<Release> getReleases() {
+        return releases;
+    }
+
+    public void setReleases(List<Release> releases) {
+        this.releases = releases;
     }
 }
