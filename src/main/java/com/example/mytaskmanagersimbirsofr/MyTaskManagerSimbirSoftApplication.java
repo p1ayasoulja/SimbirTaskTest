@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyTaskManagerSimbirSofrApplication {
+public class MyTaskManagerSimbirSoftApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyTaskManagerSimbirSofrApplication.class, args);
+        SpringApplication.run(MyTaskManagerSimbirSoftApplication.class, args);
     }
 
 }
