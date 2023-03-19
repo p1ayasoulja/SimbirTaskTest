@@ -21,6 +21,7 @@ public class Task {
     private Status status;
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Release> releases;
+
     public Task() {
     }
 
@@ -65,6 +66,10 @@ public class Task {
         return dashboard;
     }
 
+    public void setDashboard(Project dashboard) {
+        this.dashboard = dashboard;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -73,19 +78,15 @@ public class Task {
         this.status = status;
     }
 
-    public enum Status {
-        BACKLOG, DONE, IN_PROGRESS
-    }
-
-    public void setDashboard(Project dashboard) {
-        this.dashboard = dashboard;
-    }
-
     public List<Release> getReleases() {
         return releases;
     }
 
     public void setReleases(List<Release> releases) {
         this.releases = releases;
+    }
+
+    public enum Status {
+        BACKLOG, DONE, IN_PROGRESS
     }
 }

@@ -19,9 +19,8 @@ public class ReleaseService {
     }
 
     /**
-     *
      * @param version версия релиза проекта
-     * @param task сущность задачи
+     * @param task    сущность задачи
      */
     public void addRelease(String version, Task task) {
         List<Release> releaseList = releaseRepo.findByTask(task);
@@ -35,7 +34,6 @@ public class ReleaseService {
     }
 
     /**
-     *
      * @param id идентификатор задачи
      * @return список версий релиза проекта
      */
@@ -44,7 +42,6 @@ public class ReleaseService {
     }
 
     /**
-     *
      * @param task сущность задачи
      */
     public void deleteReleases(Task task) {
